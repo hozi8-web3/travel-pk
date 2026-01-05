@@ -1,0 +1,7 @@
+/* Dashboard Styles - Bootstrap Version */
+
+/* Sidebar Active Link Override */
+.list-group-item.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}

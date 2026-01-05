@@ -1,0 +1,57 @@
+/* Browse Pages (Cities/Hotels) Styles */
+
+/* Breadcrumb */
+.breadcrumb {
+    margin: 20px 0;
+    color: var(--text-gray);
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+}
+
+/* Filters Sidebar & Layout */
+.page-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.filters-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--radius);
+    height: fit-content;
+}
+
+/* Form elements in sidebar */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .page-layout {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .filters-sidebar {
+        width: 100%;
+        position: static;
+    }
+}

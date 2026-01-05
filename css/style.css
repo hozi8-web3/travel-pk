@@ -1,0 +1,184 @@
+:root {
+    --primary-color: #0F766E;
+    --secondary-color: #F59E0B;
+    --dark-color: #1E293B;
+    --light-color: #F8FAFC;
+    --font-main: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    accent-color: #F59E0B;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 76px;
+    /* Fixed navbar height */
+}
+
+/* Glassmorphism Header */
+.navbar.fixed-top {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    /* Semi-transparent white */
+    backdrop-filter: blur(12px);
+    /* Blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    /* Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+/* 2. Bootstrap Overrides */
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0d6e66;
+    border-color: #0d6e66;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #e09200;
+    border-color: #e09200;
+    color: white;
+}
+
+/* Navbar Brand */
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    font-size: 1.5rem;
+}
+
+/* Cards */
+.card {
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer default style */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 50px 0 20px;
+    margin-top: auto;
+    width: 100%;
+}
+
+/* Page Content Wrapper */
+.page-content {
+    background-color: var(--light-color);
+    min-height: calc(100vh - 76px);
+    /* Ensure content fills screen minus navbar */
+}
+
+/* Rating Star Color */
+.text-warning {
+    color: var(--secondary-color) !important;
+}
+
+/* Specific Badge Override if needed */
+.badge-custom {
+    background-color: #E2E8F0;
+    color: var(--dark-color);
+}
+
+.navbar-nav .nav-link {
+    transition: 0.3s;
+    /* smooth effect */
+}
+
+/* When hovering over a link, dim its siblings */
+.navbar-nav:hover .nav-link {
+    opacity: 0.5;
+    /* dim all links */
+}
+
+.navbar-nav .nav-link:hover {
+    opacity: 1;
+    /* keep the hovered link bright */
+}
+
+
+/* Animated Hamburger Menu */
+.navbar-toggler {
+    border: none;
+    padding: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.animated-icon {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    margin: 0px;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+
+.animated-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--primary-color);
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.animated-icon span:nth-child(1) {
+    top: 0px;
+}
+
+.animated-icon span:nth-child(2) {
+    top: 10px;
+}
+
+.animated-icon span:nth-child(3) {
+    top: 20px;
+}
+
+.animated-icon.open span:nth-child(1) {
+    top: 11px;
+    transform: rotate(135deg);
+}
+
+.animated-icon.open span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+}
+
+.animated-icon.open span:nth-child(3) {
+    top: 11px;
+    transform: rotate(-135deg);
+}
+
+/* Logo Styling */
+.navbar-brand img {
+    max-height: 40px;
+    width: auto;
+    border-radius: 50%;
+}
