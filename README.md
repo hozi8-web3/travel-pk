@@ -1,63 +1,66 @@
-# TravelPk - Tourism Booking System
+# 1st Semester Projects - 2025-2029 Session
 
-## 📌 Project Overview
-**TravelPk** is a comprehensive web-based tourism booking platform focused on Pakistani destinations. Users can explore cities, book hotels, manage their profiles, and make reservations with an intuitive and modern interface.
+This repository contains semester projects for AICT and Programming Fundamentals courses.
 
-## 🎯 Features
-- **User Authentication**: Login/Signup system with session management
-- **Destination Browsing**: Explore cities and tourist destinations across Pakistan
-- **Hotel Booking**: Search and book hotels with detailed information
-- **User Dashboard**: Manage profile, view bookings, and track loyalty rewards
-- **Admin Panel**: Manage hotels, cities, promotions, and view analytics
-- **Responsive Design**: Mobile-friendly interface using Bootstrap 5
-- **Persistent Data**: LocalStorage-based data management
+---
 
-## 🛠️ Technologies Used
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Framework**: Bootstrap 5.3.3
-- **Icons**: Bootstrap Icons
-- **Fonts**: Google Fonts (Inter)
-- **Storage**: LocalStorage API
+## � Projects Overview
+
+### 1. TravelPk - Tourism Booking System (AICT)
+A web-based tourism booking platform for Pakistani destinations with user authentication, hotel booking, and admin management.
+
+**Key Features:**
+- User login/signup and profile management
+- Browse cities and book hotels
+- Admin panel for managing content and analytics
+- Responsive Bootstrap 5 design
+- LocalStorage data persistence
+
+**Technologies:** HTML5, CSS3, JavaScript, Bootstrap 5
+
+### 2. Programming Project (PF)
+Python-based programming fundamentals project demonstrating core concepts.
+
+**Technologies:** Python 3.8+ , JSON (for data storage)
+
+---
 
 ## 📂 Project Structure
 ```
 AICT project/
-├── index.html              # Home page
-├── login.html              # User login
-├── signup.html             # User registration
-├── cities.html             # Destinations listing
-├── hotels.html             # Hotels listing
-├── booking.html            # Booking page
-├── dashboard.html          # User dashboard
-├── profile.html            # User profile
-├── about.html              # About page
-├── admin/                  # Admin panel
-│   ├── dashboard.html
-│   ├── hotels.html
+├── PF project/             # Programming Fundamentals
+│   └── python.py
+├── AICT Web Project/       # Tourism Booking System
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
 │   ├── cities.html
-│   ├── analytics.html
-│   └── promo.html
-├── css/                    # Stylesheets
-├── js/                     # JavaScript files
-└── assets/                 # Images and media
+│   ├── hotels.html
+│   ├── booking.html
+│   ├── dashboard.html
+│   ├── profile.html
+│   ├── admin/
+│   ├── css/
+│   ├── js/
+│   └── assets/
 ```
 
 ## 🚀 How to Run
-1. Extract the project folder
-2. Open `index.html` in a modern web browser (Chrome, Firefox, Edge recommended)
-3. No server setup required - runs entirely on client-side
 
-## 👤 Default Admin Credentials
-- **Username**: admin
-- **Password**: admin123
+**AICT Project:**
+- Open `index.html` in a web browser
+- Default admin login: `admin` / `admin123`
 
-## 📝 Course Information
-- **Course**: Applied Information & Communication Technologies (AICT)
-- **Semester**: 1st Semester
-- **Year**: 2025-2026
-
-## 👨‍💻 Developer
-Created as a semester project for AICT course
+**PF Project:**
+- Run: `python python.py` (requires Python 3.8+)
 
 ---
-**© 2026 TravelPk. All rights reserved.**
+
+## 📝 Course Information
+- **Courses**: AICT & Programming Fundamentals (PF)
+- **Semester**: 1st Semester
+- **Session**: 2025-2029
+
+---
+
+**© 2026 - 1st Semester Projects**
