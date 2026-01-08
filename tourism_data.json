@@ -17,6 +17,12 @@
             "password": "test",
             "points": 0,
             "role": "admin"
+        },
+        {
+            "username": "000000",
+            "password": "000000000",
+            "points": 0,
+            "role": "user"
         }
     ],
     "hotels": [
@@ -24,7 +30,7 @@
             "name": "Swat Serena",
             "city": "Swat",
             "price": 15000,
-            "rooms": 5
+            "rooms": -2
         },
         {
             "name": "Pearl Continental",

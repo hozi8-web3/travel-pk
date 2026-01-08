@@ -9,13 +9,7 @@ import os
 DATA_FILE = "tourism_data.json"
 
 # Initial data setup demo data
-cities = [
-    {"name": "Swat", "type": "Cold", "description": "Beautiful green valleys", "rating": 4.5},
-    {"name": "Karachi", "type": "Beach", "description": "Famous Clifton Beach", "rating": 4.0},
-    {"name": "Murree", "type": "Cold", "description": "Snowy hill station", "rating": 4.3},
-    {"name": "Lahore", "type": "City", "description": "Historical food paradise", "rating": 4.7},
-    {"name": "Hunza", "type": "Cold", "description": "Stunning mountains", "rating": 4.8}
-]
+cities = []
 
 current_user = None
 
@@ -26,23 +20,11 @@ def load_data():
     
     if not os.path.exists(DATA_FILE):
         initial_data = {
-            "users": [
-                {"username": "admin", "password": "admin123", "points": 0, "role": "admin"}
-            ],
-            "hotels": [
-                {"name": "Swat Serena", "city": "Swat", "price": 15000, "rooms": 5},
-                {"name": "Pearl Continental", "city": "Karachi", "price": 25000, "rooms": 3},
-                {"name": "PC Bhurban", "city": "Murree", "price": 30000, "rooms": 4},
-                {"name": "Avari Hotel", "city": "Lahore", "price": 20000, "rooms": 6},
-                {"name": "Hunza Darbar", "city": "Hunza", "price": 12000, "rooms": 5}
-            ],
+            "users": [],
+            "hotels": [],
             "bookings": [],
             "cities": cities,
-            "promo_codes": [
-                {"code": "WELCOME10", "discount": 10},
-                {"code": "SUMMER25", "discount": 25},
-                {"code": "WINTER15", "discount": 15}
-            ]
+            "promo_codes": []
         }
         save_data(initial_data)
         return initial_data  # IMPORTANT: Return the data
@@ -147,11 +129,13 @@ def login(data):
 
 def signup(data):
     print_header("SIGN UP")
+    print("Username Rules: 3-20 characters, letters/numbers/underscore only")
+    print("Password Rules: Minimum 6 characters")
     print("(Enter '0' as username to go back)\n")
     
     # Ask for username until valid
     while True:
-        username = input("Choose Username (min 3 characters): ")
+        username = input("Choose Username: ")
         
         # Allow user to cancel
         if username == "0":
@@ -159,42 +143,103 @@ def signup(data):
         
         # Validate username length
         if len(username) < 3:
-            print("✗ Username must be at least 3 characters! Try again.")
+            print("✗ Username too short! Must be at least 3 characters.")
+            continue
+        
+        if len(username) > 20:
+            print("✗ Username too long! Maximum 20 characters.")
+            continue
+        
+        # Validate username characters (only letters, numbers, underscore)
+        valid_chars = True
+        for char in username:
+            if not (char.isalnum() or char == '_'):
+                valid_chars = False
+                break
+        
+        if not valid_chars:
+            print("✗ Username can only contain letters, numbers, and underscore (_)!")
+            continue
+        
+        # Check if username starts with a letter
+        if not username[0].isalpha():
+            print("✗ Username must start with a letter!")
             continue
         
         # Check if username already exists
         username_taken = False
         for user in data["users"]:
-            if user["username"] == username:
+            if user["username"].lower() == username.lower():
                 username_taken = True
                 break
         
         if username_taken:
             print("✗ Username already taken! Try another one.")
         else:
-            break  
+            print(f"✓ Username '{username}' is available!")
+            break  # Username is valid, move to password
     
     # Ask for password until valid
     while True:
-        password = input("Choose Password (min 4 characters): ")
+        password = input("Choose Password: ")
         
-        # Validate password
-        if len(password) < 4:
-            print("✗ Password must be at least 4 characters! Try again.")
-        else:
-            break  # Password is valid
+        # Validate password length
+        if len(password) < 6:
+            print("✗ Password too short! Must be at least 6 characters.")
+            continue
+        
+        if len(password) > 30:
+            print("✗ Password too long! Maximum 30 characters.")
+            continue
+        
+        # Check if password contains at least one letter
+        has_letter = False
+        for char in password:
+            if char.isalpha():
+                has_letter = True
+                break
+        
+        if not has_letter:
+            print("✗ Password must contain at least one letter!")
+            continue
+        
+        # Check if password contains at least one number
+        has_number = False
+        for char in password:
+            if char.isdigit():
+                has_number = True
+                break
+        
+        if not has_number:
+            print("✗ Password must contain at least one number!")
+            continue
+        
+        # Confirm password
+        confirm = input("Confirm Password: ")
+        
+        if password != confirm:
+            print("✗ Passwords don't match! Try again.")
+            continue
+        
+        print("✓ Password accepted!")
+        break  # Password is valid
     
     # Create new user
     new_user = {
         "username": username, 
         "password": password, 
         "points": 0,
-        "role": "user"  # All signups are regular users
+        "role": "user"  
     }
     data["users"].append(new_user)
     save_data(data)
     
-    print("\n✓ Account created successfully! Please login now.")
+    print("\n" + "="*50)
+    print("  ✓ ACCOUNT CREATED SUCCESSFULLY!")
+    print("="*50)
+    print(f"Username: {username}")
+    print(f"You can now login with your credentials.")
+    print("="*50)
     pause()
     return True
 
@@ -579,8 +624,29 @@ def add_hotel(data):
         return
     
     city = data["cities"][city_choice - 1]["name"]
-    price = int(input("Price per night (PKR): "))
-    rooms = int(input("Number of rooms: "))
+    try:
+        price = int(input("Price per night (PKR): "))
+    except ValueError:
+        print("Invalid price! Must be a number.")
+        pause()
+        return
+
+    if price < 0:
+        print("Price cannot be negative!")
+        pause()
+        return
+
+    try:
+        rooms = int(input("Number of rooms: "))
+    except ValueError:
+        print("Invalid room count! Must be an integer.")
+        pause()
+        return
+
+    if rooms < 0:
+        print("Number of rooms cannot be negative!")
+        pause()
+        return
     
     new_hotel = {
         "name": name,
@@ -628,11 +694,35 @@ def edit_hotel(data):
     
     new_price = input(f"New price [{hotel['price']}]: ")
     if new_price:
-        hotel['price'] = int(new_price)
+        try:
+            p = int(new_price)
+        except ValueError:
+            print("Invalid price! Must be a number.")
+            pause()
+            return
+
+        if p < 0:
+            print("Price cannot be negative!")
+            pause()
+            return
+
+        hotel['price'] = p
     
     new_rooms = input(f"New rooms [{hotel['rooms']}]: ")
     if new_rooms:
-        hotel['rooms'] = int(new_rooms)
+        try:
+            r = int(new_rooms)
+        except ValueError:
+            print("Invalid room count! Must be an integer.")
+            pause()
+            return
+
+        if r < 0:
+            print("Number of rooms cannot be negative!")
+            pause()
+            return
+
+        hotel['rooms'] = r
     
     save_data(data)
     print("\n✓ Hotel updated successfully!")
@@ -697,8 +787,18 @@ def manage_rooms(data):
     hotel = hotels[choice - 1]
     
     print(f"\nCurrent rooms for {hotel['name']}: {hotel['rooms']}")
-    new_rooms = int(input("Enter new room count: "))
-    
+    try:
+        new_rooms = int(input("Enter new room count: "))
+    except ValueError:
+        print("Invalid room count! Must be an integer.")
+        pause()
+        return
+
+    if new_rooms < 0:
+        print("Number of rooms cannot be negative!")
+        pause()
+        return
+
     hotel['rooms'] = new_rooms
     save_data(data)
     
