@@ -57,17 +57,9 @@ def load_data():
             data["cities"] = cities
         if "promo_codes" not in data:
             data["promo_codes"] = []
+    
         
-        # Add role to old users who don't have it
-        for user in data["users"]:
-            if "role" not in user:
-                # Default old users to "user" role, except admin
-                if user["username"] == "admin":
-                    user["role"] = "admin"
-                else:
-                    user["role"] = "user"
-        
-        return data  # IMPORTANT: Return the data
+        return data 
     
     except Exception as e:
         print(f"Error loading data: {e}")
