@@ -985,6 +985,125 @@ def view_all_users(data):
     
     pause()
 
+def create_admin_account(data):
+    """Admin function to create new admin accounts"""
+    print_header("CREATE ADMIN ACCOUNT")
+    print("(Enter '0' as username to go back)\n")
+    
+    # Ask for username until valid
+    while True:
+        username = input("New Admin Username (min 3 characters): ")
+        
+        # Allow cancel
+        if username == "0":
+            return
+        
+        # Validate length
+        if len(username) < 3:
+            print("✗ Username must be at least 3 characters! Try again.")
+            continue
+        
+        # Check if username already exists
+        username_exists = False
+        for user in data["users"]:
+            if user["username"] == username:
+                username_exists = True
+                break
+        
+        if username_exists:
+            print("✗ Username already taken! Try another one.")
+        else:
+            break  # Username is valid
+    
+    # Ask for password until valid
+    while True:
+        password = input("Admin Password (min 4 characters): ")
+        
+        if len(password) < 4:
+            print("✗ Password must be at least 4 characters! Try again.")
+        else:
+            break  # Password is valid
+    
+    # Create new admin
+    new_admin = {
+        "username": username,
+        "password": password,
+        "points": 0,
+        "role": "admin"
+    }
+    
+    data["users"].append(new_admin)
+    save_data(data)
+    
+    print("\n" + "="*40)
+    print(f"✓ Admin account '{username}' created successfully!")
+    print("="*40)
+    print(f"Username: {username}")
+    print(f"Role: Admin")
+    print(f"They can now login with admin privileges.")
+    print("="*40)
+    pause()
+
+#USER ROLE MANAGEMENT
+def manage_user_roles(data):
+    """Change existing user roles between admin and user"""
+    print_header("MANAGE USER ROLES")
+    
+    if len(data["users"]) == 0:
+        print("\nNo users in system!")
+        pause()
+        return
+    
+    print("\nAll Users:")
+    print(f"{'#':<5} {'Username':<20} {'Role':<10} {'Points':<10}")
+    print("="*50)
+    
+    for i in range(len(data["users"])):
+        user = data["users"][i]
+        print(f"{i+1:<5} {user['username']:<20} {user['role']:<10} {user['points']:<10}")
+    
+    print("\n0. Go Back")
+    choice = input("\nEnter user number to change role: ")
+    
+    if choice == "0":
+        return
+    
+    choice = int(choice)
+    
+    if choice < 1 or choice > len(data["users"]):
+        print("Invalid choice!")
+        pause()
+        return
+    
+    selected_user = data["users"][choice - 1]
+    
+    print(f"\nSelected User: {selected_user['username']}")
+    print(f"Current Role: {selected_user['role']}")
+    
+    print("\n1. Make Admin")
+    print("2. Make Regular User")
+    print("3. Cancel")
+    
+    role_choice = input("\nChoice: ")
+    
+    if role_choice == "1":
+        if selected_user['role'] == "admin":
+            print(f"\n✗ {selected_user['username']} is already an admin!")
+        else:
+            selected_user['role'] = "admin"
+            save_data(data)
+            print(f"\n✓ {selected_user['username']} is now an admin!")
+    
+    elif role_choice == "2":
+        if selected_user['role'] == "user":
+            print(f"\n✗ {selected_user['username']} is already a regular user!")
+        else:
+            selected_user['role'] = "user"
+            save_data(data)
+            print(f"\n✓ {selected_user['username']} is now a regular user!")
+    
+    pause()
+
 # --- User Menu ---
 
 def user_menu(data):
@@ -1065,7 +1184,11 @@ def admin_menu(data):
         print("10. View Analytics")
         print("11. View All Users")
         
-        print("\n12. Logout")
+        print("\n--- ADMIN MANAGEMENT ---")
+        print("12. Create Admin Account")
+        print("13. Manage User Roles")
+        
+        print("\n14. Logout")
         
         choice = input("\nEnter your choice: ")
         
@@ -1092,6 +1215,12 @@ def admin_menu(data):
         elif choice == "11":
             view_all_users(data)
         elif choice == "12":
+            create_admin_account(data)
+            data = load_data() 
+        elif choice == "13":
+            manage_user_roles(data)
+            data = load_data()  
+        elif choice == "14":
             print("\nLogging out...")
             pause()
             break

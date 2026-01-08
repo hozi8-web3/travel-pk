@@ -11,6 +11,12 @@
             "password": "hozi",
             "points": 0,
             "role": "user"
+        },
+        {
+            "username": "test",
+            "password": "test",
+            "points": 0,
+            "role": "admin"
         }
     ],
     "hotels": [
