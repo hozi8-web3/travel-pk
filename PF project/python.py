@@ -26,7 +26,9 @@ def load_data():
     
     if not os.path.exists(DATA_FILE):
         initial_data = {
-            "users": [{"username": "admin", "password": "admin123", "points": 0}],
+            "users": [
+                {"username": "admin", "password": "admin123", "points": 0, "role": "admin"}
+            ],
             "hotels": [
                 {"name": "Swat Serena", "city": "Swat", "price": 15000, "rooms": 5},
                 {"name": "Pearl Continental", "city": "Karachi", "price": 25000, "rooms": 3},
@@ -43,19 +45,41 @@ def load_data():
             ]
         }
         save_data(initial_data)
-        return initial_data
+        return initial_data  # IMPORTANT: Return the data
     
-    file = open(DATA_FILE, "r")
-    data = json.load(file)
-    file.close()
+    try:
+        file = open(DATA_FILE, "r")
+        data = json.load(file)
+        file.close()
+        
+        # Ensure all required keys exist
+        if "cities" not in data:
+            data["cities"] = cities
+        if "promo_codes" not in data:
+            data["promo_codes"] = []
+        
+        # Add role to old users who don't have it
+        for user in data["users"]:
+            if "role" not in user:
+                # Default old users to "user" role, except admin
+                if user["username"] == "admin":
+                    user["role"] = "admin"
+                else:
+                    user["role"] = "user"
+        
+        return data  # IMPORTANT: Return the data
     
-    # Ensure all required keys exist
-    if "cities" not in data:
-        data["cities"] = cities
-    if "promo_codes" not in data:
-        data["promo_codes"] = []
-    
-    return data
+    except Exception as e:
+        print(f"Error loading data: {e}")
+        return {
+            "users": [{"username": "admin", "password": "admin123", "points": 0, "role": "admin"}],
+            "hotels": [],
+            "bookings": [],
+            "cities": cities,
+            "promo_codes": []
+        }
+
+
 
 def save_data(data):
     """Save all data to JSON file"""
@@ -131,33 +155,54 @@ def login(data):
 
 def signup(data):
     print_header("SIGN UP")
-    username = input("Choose Username: ")
+    print("(Enter '0' as username to go back)\n")
     
-    # Validate username
-    if len(username) < 3:
-        print("\n✗ Username must be at least 3 characters!")
-        pause()
-        return False
-    
-    for user in data["users"]:
-        if user["username"] == username:
-            print("\n✗ Username already taken!")
-            pause()
+    # Ask for username until valid
+    while True:
+        username = input("Choose Username (min 3 characters): ")
+        
+        # Allow user to cancel
+        if username == "0":
             return False
+        
+        # Validate username length
+        if len(username) < 3:
+            print("✗ Username must be at least 3 characters! Try again.")
+            continue
+        
+        # Check if username already exists
+        username_taken = False
+        for user in data["users"]:
+            if user["username"] == username:
+                username_taken = True
+                break
+        
+        if username_taken:
+            print("✗ Username already taken! Try another one.")
+        else:
+            break  
     
-    password = input("Choose Password: ")
+    # Ask for password until valid
+    while True:
+        password = input("Choose Password (min 4 characters): ")
+        
+        # Validate password
+        if len(password) < 4:
+            print("✗ Password must be at least 4 characters! Try again.")
+        else:
+            break  # Password is valid
     
-    # Validate password
-    if len(password) < 4:
-        print("\n✗ Password must be at least 4 characters!")
-        pause()
-        return False
-    
-    new_user = {"username": username, "password": password, "points": 0}
+    # Create new user
+    new_user = {
+        "username": username, 
+        "password": password, 
+        "points": 0,
+        "role": "user"  # All signups are regular users
+    }
     data["users"].append(new_user)
     save_data(data)
     
-    print("\n✓ Account created! Please login now.")
+    print("\n✓ Account created successfully! Please login now.")
     pause()
     return True
 
@@ -1082,15 +1127,17 @@ def main():
         
         if choice == "1":
             if login(data):
-                if current_user["username"] == "admin":
+                # Check user role instead of username
+                if current_user["role"] == "admin":
                     admin_menu(data)
                 else:
                     user_menu(data)
                 
-                data = load_data()
+                data = load_data()  # Reload data after menu
                 
         elif choice == "2":
             signup(data)
+            data = load_data()  # Reload data after signup
             
         elif choice == "3":
             print("\n" + "="*50)

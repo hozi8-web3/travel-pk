@@ -3,7 +3,14 @@
         {
             "username": "admin",
             "password": "admin123",
-            "points": 0
+            "points": 0,
+            "role": "admin"
+        },
+        {
+            "username": "hozi",
+            "password": "hozi",
+            "points": 0,
+            "role": "user"
         }
     ],
     "hotels": [
