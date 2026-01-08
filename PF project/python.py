@@ -96,20 +96,38 @@ def show_progress_bar(points, max_points=1000):
 
 def login(data):
     global current_user
-    print_header("LOGIN")
-    username = input("Username: ")
-    password = input("Password: ")
     
-    for user in data["users"]:
-        if user["username"] == username and user["password"] == password:
-            current_user = user
+    clear_screen()
+    print_header("LOGIN")
+    print("(Enter '0' as username to go back)\n")
+   
+    while True:
+        username = input("Username: ")
+        
+        if username == "0":
+            return False
+        
+        # Check if username exists
+        user_found = None
+        for user in data["users"]:
+            if user["username"] == username:
+                user_found = user
+                break
+        
+        if user_found:
+            break 
+        else:
+            print("✗ Username not found! Try again.")
+    while True:
+        password = input("Password: ")
+        
+        if user_found["password"] == password:
+            current_user = user_found
             print(f"\n✓ Welcome back, {username}!")
             pause()
             return True
-    
-    print("\n✗ Wrong username or password!")
-    pause()
-    return False
+        else:
+            print("✗ Incorrect password! Try again.")
 
 def signup(data):
     print_header("SIGN UP")
