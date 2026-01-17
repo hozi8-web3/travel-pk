@@ -6,17 +6,23 @@ import json
 import os
 
 # File to store all data
-DATA_FILE = "tourism_data.json"
+
+DATA_FILE = os.path.join("data", "tourism_data.json")
 
 # Initial data setup demo data
 cities = []
 
 current_user = None
 
-# --- File Handling Functions ---
+# File Handling Functions
 
 def load_data():
     """Load all data from JSON file"""
+    
+    # Create data folder if it doesn't exist
+    data_folder = os.path.dirname(DATA_FILE)
+    if data_folder and not os.path.exists(data_folder):
+        os.makedirs(data_folder)
     
     if not os.path.exists(DATA_FILE):
         initial_data = {

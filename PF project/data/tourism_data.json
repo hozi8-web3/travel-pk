@@ -1,0 +1,101 @@
+{
+    "users": [
+        {
+            "username": "admin",
+            "password": "admin123",
+            "points": 0,
+            "role": "admin"
+        },
+        {
+            "username": "hozi",
+            "password": "hozi",
+            "points": 0,
+            "role": "user"
+        },
+        {
+            "username": "test",
+            "password": "test",
+            "points": 0,
+            "role": "admin"
+        }
+    ],
+    "hotels": [
+        {
+            "name": "Swat Serena",
+            "city": "Swat",
+            "price": 15000,
+            "rooms": -2
+        },
+        {
+            "name": "Pearl Continental",
+            "city": "Karachi",
+            "price": 25000,
+            "rooms": 3
+        },
+        {
+            "name": "PC Bhurban",
+            "city": "Murree",
+            "price": 30000,
+            "rooms": 4
+        },
+        {
+            "name": "Avari Hotel",
+            "city": "Lahore",
+            "price": 20000,
+            "rooms": 6
+        },
+        {
+            "name": "Hunza Darbar",
+            "city": "Hunza",
+            "price": 12000,
+            "rooms": 5
+        }
+    ],
+    "bookings": [],
+    "cities": [
+        {
+            "name": "Swat",
+            "type": "Cold",
+            "description": "Beautiful green valleys",
+            "rating": 4.5
+        },
+        {
+            "name": "Karachi",
+            "type": "Beach",
+            "description": "Famous Clifton Beach",
+            "rating": 4.0
+        },
+        {
+            "name": "Murree",
+            "type": "Cold",
+            "description": "Snowy hill station",
+            "rating": 4.3
+        },
+        {
+            "name": "Lahore",
+            "type": "City",
+            "description": "Historical food paradise",
+            "rating": 4.7
+        },
+        {
+            "name": "Hunza",
+            "type": "Cold",
+            "description": "Stunning mountains",
+            "rating": 4.8
+        }
+    ],
+    "promo_codes": [
+        {
+            "code": "WELCOME10",
+            "discount": 10
+        },
+        {
+            "code": "SUMMER25",
+            "discount": 25
+        },
+        {
+            "code": "WINTER15",
+            "discount": 15
+        }
+    ]
+}
