@@ -4,15 +4,23 @@ let editingId = null;
 let hotels = [];
 
 // Modal functions
+let hotelModalInstance = null;
+
 function openModal() {
-    const modal = document.getElementById('hotelModal');
-    if (modal) modal.classList.add('active');
+    const modalElement = document.getElementById('hotelModal');
+    if (modalElement) {
+        if (!hotelModalInstance) {
+            hotelModalInstance = new bootstrap.Modal(modalElement);
+        }
+        hotelModalInstance.show();
+    }
 }
 
 function closeModal() {
-    const modal = document.getElementById('hotelModal');
-    if (modal) modal.classList.remove('active');
-    resetForm();
+    if (hotelModalInstance) {
+        hotelModalInstance.hide();
+    }
+    // Form reset is handled by hidden.bs.modal event listener
 }
 
 function saveHotels() {
@@ -107,19 +115,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Close modal buttons
+        // Initialize Bootstrap modal instance
+        if (modal) {
+            hotelModalInstance = new bootstrap.Modal(modal);
+            
+            // Reset form when modal is hidden
+            modal.addEventListener('hidden.bs.modal', function () {
+                resetForm();
+            });
+        }
+
+        // Close modal buttons (Bootstrap handles these via data-bs-dismiss, but we keep for consistency)
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', closeModal);
         }
         if (cancelBtn) {
             cancelBtn.addEventListener('click', closeModal);
-        }
-
-        // Close modal when clicking outside
-        if (modal) {
-            modal.addEventListener('click', function (e) {
-                if (e.target === modal) closeModal();
-            });
         }
 
         // Form submit

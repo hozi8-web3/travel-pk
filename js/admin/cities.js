@@ -4,15 +4,23 @@ let editingId = null;
 let cities = [];
 
 // Modal functions
+let cityModalInstance = null;
+
 function openModal() {
-    const modal = document.getElementById('cityModal');
-    if (modal) modal.classList.add('active');
+    const modalElement = document.getElementById('cityModal');
+    if (modalElement) {
+        if (!cityModalInstance) {
+            cityModalInstance = new bootstrap.Modal(modalElement);
+        }
+        cityModalInstance.show();
+    }
 }
 
 function closeModal() {
-    const modal = document.getElementById('cityModal');
-    if (modal) modal.classList.remove('active');
-    resetForm();
+    if (cityModalInstance) {
+        cityModalInstance.hide();
+    }
+    // Form reset is handled by hidden.bs.modal event listener
 }
 
 function saveCities() {
@@ -97,19 +105,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Close modal buttons
+        // Initialize Bootstrap modal instance
+        if (modal) {
+            cityModalInstance = new bootstrap.Modal(modal);
+            
+            // Reset form when modal is hidden
+            modal.addEventListener('hidden.bs.modal', function () {
+                resetForm();
+            });
+        }
+
+        // Close modal buttons (Bootstrap handles these via data-bs-dismiss, but we keep for consistency)
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', closeModal);
         }
         if (cancelBtn) {
             cancelBtn.addEventListener('click', closeModal);
-        }
-
-        // Close modal when clicking outside
-        if (modal) {
-            modal.addEventListener('click', function (e) {
-                if (e.target === modal) closeModal();
-            });
         }
 
         // Form submit
