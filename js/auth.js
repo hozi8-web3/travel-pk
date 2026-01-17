@@ -8,7 +8,7 @@ function initializeDemoUsers() {
         const demoUsers = [
             {
                 id: 1,
-                name: 'HOZI',
+                name: 'Demo Admin',
                 email: 'admin@travelpk.com',
                 password: 'admin123', // In production, this should be hashed
                 phone: '+92 300 1234567',

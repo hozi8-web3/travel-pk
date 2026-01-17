@@ -59,19 +59,40 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Guests</label>
-                                    <select class="form-select">
-                                        <option>2 Adults, 0 Children</option>
-                                        <option>1 Adult, 0 Children</option>
-                                        <option>2 Adults, 1 Child</option>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Adults</label>
+                                    <select class="form-select" id="adultsSelect">
+                                        <option value="1">1 Adult</option>
+                                        <option value="2" selected>2 Adults</option>
+                                        <option value="3">3 Adults</option>
+                                        <option value="4">4 Adults</option>
+                                        <option value="5">5 Adults</option>
+                                        <option value="6">6 Adults</option>
+                                        <option value="7">7 Adults</option>
+                                        <option value="8">8 Adults</option>
+                                        <option value="9">9 Adults</option>
+                                        <option value="10">10 Adults</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Children</label>
+                                    <select class="form-select" id="childrenSelect">
+                                        <option value="0" selected>0 Children</option>
+                                        <option value="1">1 Child</option>
+                                        <option value="2">2 Children</option>
+                                        <option value="3">3 Children</option>
+                                        <option value="4">4 Children</option>
+                                        <option value="5">5 Children</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
                                     <label class="form-label fw-bold">Rooms</label>
-                                    <select class="form-select">
-                                        <option>1 Room</option>
-                                        <option>2 Rooms</option>
+                                    <select class="form-select" id="roomsSelect">
+                                        <option value="1" selected>1 Room</option>
+                                        <option value="2">2 Rooms</option>
+                                        <option value="3">3 Rooms</option>
+                                        <option value="4">4 Rooms</option>
+                                        <option value="5">5 Rooms</option>
                                     </select>
                                 </div>
                             </div>
@@ -107,11 +128,11 @@
                     <div class="card p-4 shadow-sm border-0 sticky-top" style="top: 90px;">
                         <h5 class="fw-bold mb-3">Price Summary</h5>
                         <div class="d-flex gap-3 mb-3 align-items-center">
-                            <img src="assets/hotel.png" class="rounded"
+                            <img id="hotelImage" src="assets/hotel.png" class="rounded"
                                 style="width: 80px; height: 80px; object-fit: cover;">
                             <div>
-                                <h6 class="mb-1">Pearl Continental</h6>
-                                <div class="text-warning small">★★★★★</div>
+                                <h6 id="hotelName" class="mb-1">Pearl Continental</h6>
+                                <div id="hotelRating" class="text-warning small">★★★★★</div>
                             </div>
                         </div>
 

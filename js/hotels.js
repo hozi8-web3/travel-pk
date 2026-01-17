@@ -18,19 +18,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load hotels from localStorage (set by admin) or use default
     const hotelsData = JSON.parse(localStorage.getItem('hotels')) || [];
     const defaultHotels = [
-        { name: 'Pearl Continental Hotel', city: 'Lahore', price: 25000, rating: 5, image: 'assets/pc.jpg', location: 'Mall Road, Lahore', amenities: ['WiFi', 'Pool', 'Gym'] },
-        { name: 'Serena Hotel Islamabad', city: 'Islamabad', price: 30000, rating: 5, image: 'assets/serena.webp', location: 'Khayaban-e-Suharwardy, Islamabad', amenities: ['WiFi', 'Spa', 'Restaurant'] },
-        { name: 'Avari Hotel Lahore', city: 'Lahore', price: 22000, rating: 4.5, image: 'assets/pc.jpg', location: 'Mall Road, Lahore', amenities: ['WiFi', 'Spa'] },
-        { name: 'Marriott Karachi', city: 'Karachi', price: 28000, rating: 4.8, image: 'assets/hotel.png', location: 'Abdullah Haroon Road, Karachi', amenities: ['WiFi', 'Pool', 'Gym'] },
-        { name: 'PC Hotel Karachi', city: 'Karachi', price: 24000, rating: 4.7, image: 'assets/pc.jpg', location: 'Club Road, Karachi', amenities: ['WiFi', 'Restaurant'] },
-        { name: 'Hunza Serena Inn', city: 'Hunza', price: 18000, rating: 4.6, image: 'assets/hotel.png', location: 'Karimabad, Hunza', amenities: ['WiFi', 'Mountain View'] },
-        { name: 'Swat Serena Hotel', city: 'Swat', price: 20000, rating: 4.5, image: 'assets/hotel.png', location: 'Saidu Sharif, Swat', amenities: ['WiFi', 'Garden'] },
-        { name: 'Gwadar Golf Resort', city: 'Gwadar', price: 15000, rating: 4.2, image: 'assets/gor.jpeg', location: 'Gwadar Port, Gwadar', amenities: ['Beach View', 'WiFi'] }
+        { id: 1, name: 'Pearl Continental Hotel', city: 'Lahore', price: 25000, rating: 5, image: 'assets/pc.jpg', location: 'Mall Road, Lahore', amenities: ['WiFi', 'Pool', 'Gym'] },
+        { id: 2, name: 'Serena Hotel Islamabad', city: 'Islamabad', price: 30000, rating: 5, image: 'assets/serena.webp', location: 'Khayaban-e-Suharwardy, Islamabad', amenities: ['WiFi', 'Spa', 'Restaurant'] },
+        { id: 3, name: 'Avari Hotel Lahore', city: 'Lahore', price: 22000, rating: 4.5, image: 'assets/pc.jpg', location: 'Mall Road, Lahore', amenities: ['WiFi', 'Spa'] },
+        { id: 4, name: 'Marriott Karachi', city: 'Karachi', price: 28000, rating: 4.8, image: 'assets/hotel.png', location: 'Abdullah Haroon Road, Karachi', amenities: ['WiFi', 'Pool', 'Gym'] },
+        { id: 5, name: 'PC Hotel Karachi', city: 'Karachi', price: 24000, rating: 4.7, image: 'assets/pc.jpg', location: 'Club Road, Karachi', amenities: ['WiFi', 'Restaurant'] },
+        { id: 6, name: 'Hunza Serena Inn', city: 'Hunza', price: 18000, rating: 4.6, image: 'assets/hotel.png', location: 'Karimabad, Hunza', amenities: ['WiFi', 'Mountain View'] },
+        { id: 7, name: 'Swat Serena Hotel', city: 'Swat', price: 20000, rating: 4.5, image: 'assets/hotel.png', location: 'Saidu Sharif, Swat', amenities: ['WiFi', 'Garden'] },
+        { id: 8, name: 'Gwadar Golf Resort', city: 'Gwadar', price: 15000, rating: 4.2, image: 'assets/gor.jpeg', location: 'Gwadar Port, Gwadar', amenities: ['Beach View', 'WiFi'] }
     ];
 
     // Convert hotelsData to display format
     const allHotels = hotelsData.length > 0
         ? hotelsData.map(hotel => ({
+            id: hotel.id,
             name: hotel.name,
             city: hotel.city,
             price: hotel.price || 0,
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="small text-muted">
                                     ${hotel.amenities.slice(0, 2).map(a => `<span class="me-2 badge bg-light text-dark">${a}</span>`).join('')}
                                 </div>
-                                <a href="booking.html" class="btn btn-primary">Book Now</a>
+                                <a href="booking.html?hotelId=${hotel.id}" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
                     </div>
