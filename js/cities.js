@@ -180,5 +180,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initial render
     filteredCities = allCities;
-    renderCities();
+
+    // Check for search params
+    const urlParams = new URLSearchParams(window.location.search);
+    const destination = urlParams.get('destination');
+    if (destination && searchInput) {
+        searchInput.value = destination;
+        filterAndRender();
+    } else {
+        renderCities();
+    }
 });

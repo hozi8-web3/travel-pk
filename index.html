@@ -63,22 +63,24 @@
                 <!-- Search Bar -->
                 <div class="p-4 rounded d-inline-block"
                     style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
-                    <form action="cities.html">
+                    <form action="cities.html" method="GET">
                         <div class="d-flex flex-wrap gap-3 justify-content-center mb-3">
                             <div>
                                 <label class="form-label small text-white mb-1 d-block">Destination</label>
-                                <input type="text" class="form-control" placeholder="Where to go?"
-                                    style="min-width: 200px;">
+                                <input type="text" name="destination" class="form-control" placeholder="Where to go?"
+                                    style="min-width: 200px;" required>
                             </div>
 
                             <div>
                                 <label class="form-label small text-white mb-1 d-block">Check-in</label>
-                                <input type="date" class="form-control" style="min-width: 150px;">
+                                <input type="date" name="checkin" class="form-control" style="min-width: 150px;"
+                                    required>
                             </div>
 
                             <div>
                                 <label class="form-label small text-white mb-1 d-block">Check-out</label>
-                                <input type="date" class="form-control" style="min-width: 150px;">
+                                <input type="date" name="checkout" class="form-control" style="min-width: 150px;"
+                                    required>
                             </div>
                         </div>
 

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const status = booking.status || 'Pending';
                     let badgeClass = 'bg-secondary';
                     if (status === 'Confirmed') badgeClass = 'bg-success';
-                    else if (status === 'Pending') badgeClass = 'bg-warning';
+                    else if (status === 'Pending') badgeClass = 'bg-warning text-dark';
                     else if (status === 'Cancelled') badgeClass = 'bg-danger';
 
                     let actionBtn = '';
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td class="fw-medium">${user ? user.name : 'Unknown'}</td>
                             <td>${hotel ? hotel.name : 'Unknown'}</td>
                             <td>${booking.date ? new Date(booking.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A'}</td>
-                            <td><span class="badge ${badgeClass} bg-opacity-10 text-${badgeClass.replace('bg-', '')} border border-${badgeClass.replace('bg-', '')}">${status}</span></td>
+                            <td><span class="badge ${badgeClass}">${status}</span></td>
                             <td>PKR ${(booking.amount || 0).toLocaleString()}</td>
                             <td>${actionBtn}</td>
                         </tr>

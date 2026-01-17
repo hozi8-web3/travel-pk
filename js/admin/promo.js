@@ -42,7 +42,7 @@ function renderPromos() {
                 <td>${promo.discount}%</td>
                 <td>${new Date(promo.validUntil).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
                 <td>${promo.usage || 0}</td>
-                <td><span class="badge badge-${status === 'Active' ? 'success' : 'danger'}">${status}</span></td>
+                <td><span class="badge ${status === 'Active' ? 'bg-success' : 'bg-danger'}">${status}</span></td>
                 <td><button class="btn btn-danger btn-sm" onclick="deletePromo(${promo.id})"><i class="bi bi-trash"></i> Delete</button></td>
             </tr>
         `;

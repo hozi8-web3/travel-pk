@@ -50,7 +50,7 @@ function renderHotels() {
             </td>
             <td>${hotel.city}</td>
             <td>PKR ${(hotel.price || 0).toLocaleString()}</td>
-            <td><span class="badge badge-${hotel.status === 'Active' ? 'success' : 'danger'}">${hotel.status || 'Active'}</span></td>
+            <td><span class="badge ${hotel.status === 'Active' ? 'bg-success' : 'bg-danger'}">${hotel.status || 'Active'}</span></td>
             <td>
                 <button class="btn btn-secondary btn-sm" onclick="editHotel(${hotel.id})"><i class="bi bi-pencil"></i> Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteHotel(${hotel.id})"><i class="bi bi-trash"></i> Delete</button>
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Initialize Bootstrap modal instance
         if (modal) {
             hotelModalInstance = new bootstrap.Modal(modal);
-            
+
             // Reset form when modal is hidden
             modal.addEventListener('hidden.bs.modal', function () {
                 resetForm();

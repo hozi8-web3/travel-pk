@@ -57,8 +57,20 @@ function signup(name, email, phone, password, confirmPassword) {
         return { success: false, message: 'Passwords do not match' };
     }
 
-    if (password.length < 6) {
-        return { success: false, message: 'Password must be at least 6 characters' };
+    // Username check: Must start with a letter
+    if (!/^[a-zA-Z]/.test(name)) {
+        return { success: false, message: 'Username must start with a letter' };
+    }
+
+    // Password check: Letter, number, special char, min 6 chars
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+        return { success: false, message: 'Password must contain at least one letter, one number, and one special character' };
+    }
+
+    // Password matching email check
+    if (password === email) {
+        return { success: false, message: 'Password cannot be the same as email' };
     }
 
     const users = JSON.parse(localStorage.getItem('users')) || initializeDemoUsers();
