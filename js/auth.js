@@ -17,7 +17,7 @@ function initializeDemoUsers() {
             },
             {
                 id: 2,
-                name: 'HOZI User',
+                name: 'Demo User',
                 email: 'user@travelpk.com',
                 password: 'user123',
                 phone: '+92 300 1234568',
