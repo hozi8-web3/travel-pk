@@ -8,80 +8,246 @@
         },
         {
             "username": "hozi",
-            "password": "hozi",
-            "points": 0,
+            "password": "hozi123",
+            "points": 250,
             "role": "user"
         },
         {
-            "username": "test",
-            "password": "test",
+            "username": "hashmat",
+            "password": "hash123",
+            "points": 180,
+            "role": "user"
+        },
+        {
+            "username": "sara_khan",
+            "password": "sara2024",
+            "points": 420,
+            "role": "user"
+        },
+        {
+            "username": "ali_raza",
+            "password": "ali456",
+            "points": 95,
+            "role": "user"
+        },
+        {
+            "username": "manager",
+            "password": "manager123",
             "points": 0,
             "role": "admin"
         }
     ],
     "hotels": [
         {
-            "name": "Swat Serena",
+            "name": "Swat Serena Hotel",
             "city": "Swat",
             "price": 15000,
-            "rooms": -2
+            "rooms": 12
         },
         {
-            "name": "Pearl Continental",
+            "name": "Pearl Continental Karachi",
             "city": "Karachi",
-            "price": 25000,
-            "rooms": 3
+            "price": 22000,
+            "rooms": 25
         },
         {
-            "name": "PC Bhurban",
+            "name": "Avari Towers Karachi",
+            "city": "Karachi",
+            "price": 18000,
+            "rooms": 18
+        },
+        {
+            "name": "PC Hotel Bhurban",
             "city": "Murree",
-            "price": 30000,
-            "rooms": 4
+            "price": 28000,
+            "rooms": 15
         },
         {
-            "name": "Avari Hotel",
+            "name": "Grand Heights Hotel Murree",
+            "city": "Murree",
+            "price": 12000,
+            "rooms": 20
+        },
+        {
+            "name": "Avari Hotel Lahore",
             "city": "Lahore",
             "price": 20000,
-            "rooms": 6
+            "rooms": 30
         },
         {
-            "name": "Hunza Darbar",
+            "name": "Nishat Hotel Lahore",
+            "city": "Lahore",
+            "price": 16000,
+            "rooms": 22
+        },
+        {
+            "name": "Hunza Serena Inn",
             "city": "Hunza",
-            "price": 12000,
-            "rooms": 5
+            "price": 14000,
+            "rooms": 10
+        },
+        {
+            "name": "Eagle's Nest Hunza",
+            "city": "Hunza",
+            "price": 11000,
+            "rooms": 8
+        },
+        {
+            "name": "Naran Continental",
+            "city": "Naran",
+            "price": 9000,
+            "rooms": 16
+        },
+        {
+            "name": "Skardu Serena Hotel",
+            "city": "Skardu",
+            "price": 13000,
+            "rooms": 12
+        },
+        {
+            "name": "Shangrila Resort Skardu",
+            "city": "Skardu",
+            "price": 15000,
+            "rooms": 14
+        },
+        {
+            "name": "Mövenpick Hotel Islamabad",
+            "city": "Islamabad",
+            "price": 24000,
+            "rooms": 28
+        },
+        {
+            "name": "Serena Hotel Islamabad",
+            "city": "Islamabad",
+            "price": 26000,
+            "rooms": 20
+        },
+        {
+            "name": "Faisalabad Serena Hotel",
+            "city": "Faisalabad",
+            "price": 17000,
+            "rooms": 18
+        },
+        {
+            "name": "Pearl Continental Muzaffarabad",
+            "city": "Muzaffarabad",
+            "price": 11000,
+            "rooms": 10
+        },
+        {
+            "name": "Port Grand Hotel Karachi",
+            "city": "Karachi",
+            "price": 14000,
+            "rooms": 24
+        },
+        {
+            "name": "Margalla Hotel Islamabad",
+            "city": "Islamabad",
+            "price": 19000,
+            "rooms": 16
         }
     ],
-    "bookings": [],
+    "bookings": [
+        {
+            "username": "sara_khan",
+            "hotel": "Hunza Serena Inn",
+            "city": "Hunza",
+            "nights": 3,
+            "guests": 2,
+            "rooms": 1,
+            "cost": 42000
+        },
+        {
+            "username": "ali_raza",
+            "hotel": "Swat Serena Hotel",
+            "city": "Swat",
+            "nights": 2,
+            "guests": 4,
+            "rooms": 2,
+            "cost": 60000
+        },
+        {
+            "username": "hozi",
+            "hotel": "Avari Hotel Lahore",
+            "city": "Lahore",
+            "nights": 1,
+            "guests": 2,
+            "rooms": 1,
+            "cost": 20000
+        }
+    ],
     "cities": [
         {
             "name": "Swat",
             "type": "Cold",
-            "description": "Beautiful green valleys",
-            "rating": 4.5
+            "description": "Known as the Switzerland of Pakistan with lush green valleys and crystal-clear rivers",
+            "rating": 4.7
         },
         {
             "name": "Karachi",
             "type": "Beach",
-            "description": "Famous Clifton Beach",
-            "rating": 4.0
+            "description": "Pakistan's largest city featuring Clifton Beach, Hawks Bay, and vibrant nightlife",
+            "rating": 4.2
         },
         {
             "name": "Murree",
             "type": "Cold",
-            "description": "Snowy hill station",
-            "rating": 4.3
+            "description": "Popular hill station with pine forests and stunning snowfall in winter",
+            "rating": 4.4
         },
         {
             "name": "Lahore",
             "type": "City",
-            "description": "Historical food paradise",
-            "rating": 4.7
+            "description": "Cultural heart of Pakistan with Mughal architecture, Badshahi Mosque, and world-class food",
+            "rating": 4.8
         },
         {
             "name": "Hunza",
             "type": "Cold",
-            "description": "Stunning mountains",
+            "description": "Breathtaking mountain valley with cherry blossoms, Attabad Lake, and ancient forts",
+            "rating": 4.9
+        },
+        {
+            "name": "Naran",
+            "type": "Cold",
+            "description": "Gateway to Saif-ul-Malook Lake with mesmerizing mountain landscapes",
+            "rating": 4.6
+        },
+        {
+            "name": "Skardu",
+            "type": "Cold",
+            "description": "Adventure hub near K2 with Shangrila Lake, Deosai Plains, and Shigar Fort",
             "rating": 4.8
+        },
+        {
+            "name": "Islamabad",
+            "type": "City",
+            "description": "Modern capital city with Faisal Mosque, Margalla Hills, and diplomatic enclave",
+            "rating": 4.5
+        },
+        {
+            "name": "Faisalabad",
+            "type": "City",
+            "description": "Industrial hub known as Manchester of Pakistan with vibrant bazaars",
+            "rating": 3.9
+        },
+        {
+            "name": "Muzaffarabad",
+            "type": "Cold",
+            "description": "Capital of Azad Kashmir with Red Fort, Pir Chinasi, and scenic beauty",
+            "rating": 4.3
+        },
+        {
+            "name": "Gwadar",
+            "type": "Beach",
+            "description": "Emerging port city with pristine beaches, Hammerhead cliffs, and fresh seafood",
+            "rating": 4.1
+        },
+        {
+            "name": "Chitral",
+            "type": "Cold",
+            "description": "Remote valley with Kalash culture, Tirich Mir peak, and stunning landscapes",
+            "rating": 4.7
         }
     ],
     "promo_codes": [
@@ -96,6 +262,22 @@
         {
             "code": "WINTER15",
             "discount": 15
+        },
+        {
+            "code": "NEWUSER20",
+            "discount": 20
+        },
+        {
+            "code": "FAMILY30",
+            "discount": 30
+        },
+        {
+            "code": "WEEKEND12",
+            "discount": 12
+        },
+        {
+            "code": "EARLYBIRD18",
+            "discount": 18
         }
     ]
 }

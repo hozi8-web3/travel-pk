@@ -123,7 +123,10 @@ def login(data):
         else:
             print("✗ Username not found! Try again.")
     while True:
-        password = input("Password: ")
+        password = input("Password (or '0' to go back): ")
+        
+        if password == "0":
+            return False
         
         if user_found["password"] == password:
             current_user = user_found
@@ -325,21 +328,39 @@ def book_hotel(data):
         pause()
         return
     
-    # Get booking details
-    nights = int(input("How many nights? "))
-    guests = int(input("Number of guests? "))
-    num_rooms = int(input(f"Number of rooms (max {selected_hotel['rooms']}): "))
+    # Get booking details with validation
+    while True:
+        try:
+            nights = int(input("How many nights? "))
+            if nights < 1:
+                print("✗ Nights must be at least 1!")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
-    # Validate room count
-    if num_rooms > selected_hotel['rooms']:
-        print(f"\nOnly {selected_hotel['rooms']} rooms available!")
-        pause()
-        return
+    while True:
+        try:
+            guests = int(input("Number of guests? "))
+            if guests < 1:
+                print("✗ Guests must be at least 1!")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
-    if num_rooms < 1:
-        print("\nMust book at least 1 room!")
-        pause()
-        return
+    while True:
+        try:
+            num_rooms = int(input(f"Number of rooms (max {selected_hotel['rooms']}): "))
+            if num_rooms < 1:
+                print(f"✗ Must book at least 1 room!")
+                continue
+            if num_rooms > selected_hotel['rooms']:
+                print(f"✗ Only {selected_hotel['rooms']} rooms available!")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     # Calculate cost
     total_cost = selected_hotel['price'] * nights * num_rooms
@@ -364,17 +385,27 @@ def book_hotel(data):
     promo_discount = 0
     use_promo = input("\nDo you have a promo code? (y/n): ")
     if use_promo == "y":
-        promo_code = input("Enter promo code: ").upper()
-        
-        for promo in data["promo_codes"]:
-            if promo["code"] == promo_code:
-                promo_discount = int(total_cost * (promo["discount"] / 100))
-                total_cost = total_cost - promo_discount
-                print(f"✓ Promo '{promo_code}' Applied ({promo['discount']}%): -PKR {promo_discount}")
+        while True:
+            promo_code = input("Enter promo code (or '0' to skip): ").upper()
+            
+            if promo_code == "0":
+                print("✗ Promo code skipped.")
                 break
-        
-        if promo_discount == 0:
-            print("✗ Invalid promo code!")
+            
+            promo_found = False
+            for promo in data["promo_codes"]:
+                if promo["code"] == promo_code:
+                    promo_discount = int(total_cost * (promo["discount"] / 100))
+                    total_cost = total_cost - promo_discount
+                    print(f"✓ Promo '{promo_code}' Applied ({promo['discount']}%): -PKR {promo_discount}")
+                    promo_found = True
+                    break
+            
+            if not promo_found:
+                print("✗ Invalid promo code! Try again or enter '0' to skip.\n")
+                continue
+            else:
+                break
     
     # Loyalty points discount
     loyalty_discount = 0
@@ -494,17 +525,21 @@ def cancel_booking(data):
         booking = data["bookings"][booking_index]
         print(f"{i+1}. {booking['hotel']} - {booking['city']} ({booking['rooms']} rooms) - PKR {booking['cost']}")
     
-    choice = input("\nEnter booking number to cancel (or 0 to go back): ")
-    
-    if choice == "0":
-        return
-    
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(user_bookings):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = input("\nEnter booking number to cancel (or 0 to go back): ")
+            
+            if choice == "0":
+                return
+            
+            choice = int(choice)
+            
+            if choice < 1 or choice > len(user_bookings):
+                print("✗ Invalid choice! Please enter a valid booking number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     booking_index = user_bookings[choice - 1]
     cancelled = data["bookings"][booking_index]
@@ -621,13 +656,15 @@ def add_hotel(data):
     for i in range(len(data["cities"])):
         print(f"{i+1}. {data['cities'][i]['name']}")
     
-    city_choice = input("\nSelect city number: ")
-    city_choice = int(city_choice)
-    
-    if city_choice < 1 or city_choice > len(data["cities"]):
-        print("Invalid city!")
-        pause()
-        return
+    while True:
+        try:
+            city_choice = int(input("\nSelect city number: "))
+            if city_choice < 1 or city_choice > len(data["cities"]):
+                print("✗ Invalid city! Please enter a valid city number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     city = data["cities"][city_choice - 1]["name"]
     try:
@@ -681,13 +718,15 @@ def edit_hotel(data):
     for i in range(len(hotels)):
         print(f"{i+1}. {hotels[i]['name']} - {hotels[i]['city']}")
     
-    choice = input("\nEnter hotel number: ")
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(hotels):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = int(input("\nEnter hotel number: "))
+            if choice < 1 or choice > len(hotels):
+                print("✗ Invalid choice! Please enter a valid hotel number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     hotel = hotels[choice - 1]
     
@@ -748,13 +787,15 @@ def delete_hotel(data):
     for i in range(len(hotels)):
         print(f"{i+1}. {hotels[i]['name']} - {hotels[i]['city']}")
     
-    choice = input("\nEnter hotel number: ")
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(hotels):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = int(input("\nEnter hotel number: "))
+            if choice < 1 or choice > len(hotels):
+                print("✗ Invalid choice! Please enter a valid hotel number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     hotel = hotels[choice - 1]
     confirm = input(f"\nDelete '{hotel['name']}'? (y/n): ")
@@ -782,28 +823,29 @@ def manage_rooms(data):
     for i in range(len(hotels)):
         print(f"{i+1}. {hotels[i]['name']} - {hotels[i]['rooms']} rooms available")
     
-    choice = input("\nSelect hotel to update rooms: ")
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(hotels):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = int(input("\nSelect hotel to update rooms: "))
+            if choice < 1 or choice > len(hotels):
+                print("✗ Invalid choice! Please enter a valid hotel number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     hotel = hotels[choice - 1]
     
     print(f"\nCurrent rooms for {hotel['name']}: {hotel['rooms']}")
-    try:
-        new_rooms = int(input("Enter new room count: "))
-    except ValueError:
-        print("Invalid room count! Must be an integer.")
-        pause()
-        return
-
-    if new_rooms < 0:
-        print("Number of rooms cannot be negative!")
-        pause()
-        return
+    
+    while True:
+        try:
+            new_rooms = int(input("Enter new room count: "))
+            if new_rooms < 0:
+                print("✗ Number of rooms cannot be negative! Please try again.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Must be a valid number.")
 
     hotel['rooms'] = new_rooms
     save_data(data)
@@ -835,12 +877,16 @@ def add_city(data):
         return
     
     description = input("Description: ")
-    rating = float(input("Rating (0-5): "))
     
-    if rating < 0 or rating > 5:
-        print("Rating must be between 0 and 5!")
-        pause()
-        return
+    while True:
+        try:
+            rating = float(input("Rating (0-5): "))
+            if rating < 0 or rating > 5:
+                print("✗ Rating must be between 0 and 5! Please try again.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     new_city = {
         "name": name,
@@ -869,13 +915,15 @@ def edit_city(data):
     for i in range(len(cities_list)):
         print(f"{i+1}. {cities_list[i]['name']}")
     
-    choice = input("\nEnter city number: ")
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(cities_list):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = int(input("\nEnter city number: "))
+            if choice < 1 or choice > len(cities_list):
+                print("✗ Invalid choice! Please enter a valid city number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     city = cities_list[choice - 1]
     
@@ -892,7 +940,22 @@ def edit_city(data):
     
     new_rating = input(f"New rating [{city['rating']}]: ")
     if new_rating:
-        city['rating'] = float(new_rating)
+        while True:
+            try:
+                rating_val = float(new_rating)
+                if rating_val < 0 or rating_val > 5:
+                    print("✗ Rating must be between 0 and 5!")
+                    new_rating = input(f"New rating [{city['rating']}]: ")
+                    if not new_rating:
+                        break
+                    continue
+                city['rating'] = rating_val
+                break
+            except ValueError:
+                print("✗ Invalid input! Please enter a valid number.")
+                new_rating = input(f"New rating [{city['rating']}]: ")
+                if not new_rating:
+                    break
     
     save_data(data)
     print("\n✓ City updated successfully!")
@@ -901,21 +964,34 @@ def edit_city(data):
 def create_promo_code(data):
     print_header("CREATE PROMO CODE")
     
-    code = input("Promo Code (e.g., SUMMER25): ").upper()
-    
-    # Check if code already exists
-    for promo in data["promo_codes"]:
-        if promo["code"] == code:
-            print("\n✗ This promo code already exists!")
-            pause()
+    while True:
+        code = input("Promo Code (e.g., SUMMER25) or 'back' to go back: ").upper()
+        
+        if code == "BACK":
             return
+        
+        # Check if code already exists
+        code_exists = False
+        for promo in data["promo_codes"]:
+            if promo["code"] == code:
+                print("✗ This promo code already exists! Try again.\n")
+                code_exists = True
+                break
+        
+        if code_exists:
+            continue
+        
+        break
     
-    discount = int(input("Discount percentage (e.g., 25): "))
-    
-    if discount < 1 or discount > 100:
-        print("Discount must be between 1 and 100!")
-        pause()
-        return
+    while True:
+        try:
+            discount = int(input("Discount percentage (e.g., 25): "))
+            if discount < 1 or discount > 100:
+                print("✗ Discount must be between 1 and 100! Please try again.\n")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.\n")
     
     new_promo = {
         "code": code,
@@ -955,15 +1031,25 @@ def manage_promo_codes(data):
     if choice == "1":
         create_promo_code(data)
     elif choice == "2":
-        del_choice = int(input("\nEnter promo number to delete: "))
-        if del_choice >= 1 and del_choice <= len(data["promo_codes"]):
-            deleted = data["promo_codes"].pop(del_choice - 1)
-            save_data(data)
-            print(f"\n✓ Promo code '{deleted['code']}' deleted!")
-            pause()
-        else:
-            print("Invalid choice!")
-            pause()
+        while True:
+            while True:
+                try:
+                    del_choice = int(input("\nEnter promo number to delete (or 0 to go back): "))
+                    if del_choice == 0:
+                        return
+                    if del_choice >= 1 and del_choice <= len(data["promo_codes"]):
+                        deleted = data["promo_codes"].pop(del_choice - 1)
+                        save_data(data)
+                        print(f"\n✓ Promo code '{deleted['code']}' deleted!")
+                        pause()
+                        return
+                    else:
+                        print("✗ Invalid choice! Please enter a valid promo number.\n")
+                        continue
+                except ValueError:
+                    print("✗ Invalid input! Please enter a valid number.\n")
+                    continue
+            break
 
 def view_all_bookings(data):
     print_header("ALL BOOKINGS")
@@ -994,13 +1080,17 @@ def delete_booking(data):
         booking = data["bookings"][i]
         print(f"{i+1}. {booking['username']} - {booking['hotel']} ({booking['rooms']} rooms) - PKR {booking['cost']}")
     
-    choice = input("\nEnter booking number to delete: ")
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(data["bookings"]):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = input("\nEnter booking number to delete: ")
+            choice = int(choice)
+            
+            if choice < 1 or choice > len(data["bookings"]):
+                print("✗ Invalid choice! Please enter a valid booking number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     cancelled = data["bookings"][choice - 1]
     
@@ -1169,17 +1259,18 @@ def manage_user_roles(data):
         print(f"{i+1:<5} {user['username']:<20} {user['role']:<10} {user['points']:<10}")
     
     print("\n0. Go Back")
-    choice = input("\nEnter user number to change role: ")
     
-    if choice == "0":
-        return
-    
-    choice = int(choice)
-    
-    if choice < 1 or choice > len(data["users"]):
-        print("Invalid choice!")
-        pause()
-        return
+    while True:
+        try:
+            choice = int(input("\nEnter user number to change role: "))
+            if choice == 0:
+                return
+            if choice < 1 or choice > len(data["users"]):
+                print("✗ Invalid choice! Please enter a valid user number.")
+                continue
+            break
+        except ValueError:
+            print("✗ Invalid input! Please enter a valid number.")
     
     selected_user = data["users"][choice - 1]
     
@@ -1342,7 +1433,7 @@ def main():
     while True:
         clear_screen()
         print("="*50)
-        print("     TOURISM BOOKING SYSTEM")
+        print("     TRAVEL PK-TOURISM BOOKING SYSTEM")
         print("     Institute of Data Science")
         print("     Session 2025-2029")
         print("="*50)
@@ -1378,14 +1469,14 @@ def main():
 
 # Run the program
 if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n" + "="*50)
+        print("="*50)
+        print("Thank you for using Tourism Booking System!")
+        print("See you next time! 👋")
+        print("="*50 + "\n")
 
 
 
