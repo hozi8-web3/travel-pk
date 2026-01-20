@@ -1,16 +1,19 @@
-// Admin Promo Codes Management JavaScript - No Bootstrap Dependencies
+// Admin Promo Codes Management JavaScript - Bootstrap 5 Modal
 
 let promos = [];
+let promoModal = null;
 
-// Modal functions
+// Modal functions using Bootstrap 5
 function openModal() {
-    const modal = document.getElementById('promoModal');
-    if (modal) modal.classList.add('active');
+    if (promoModal) {
+        promoModal.show();
+    }
 }
 
 function closeModal() {
-    const modal = document.getElementById('promoModal');
-    if (modal) modal.classList.remove('active');
+    if (promoModal) {
+        promoModal.hide();
+    }
     const form = document.getElementById('promoForm');
     if (form) form.reset();
 }
@@ -64,31 +67,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // Load promos from localStorage
         promos = JSON.parse(localStorage.getItem('promos')) || [];
 
+        // Initialize Bootstrap modal
+        const modalElement = document.getElementById('promoModal');
+        if (modalElement) {
+            promoModal = new bootstrap.Modal(modalElement);
+        }
+
         const addPromoBtn = document.getElementById('addPromoBtn');
-        const closeModalBtn = document.getElementById('closeModal');
-        const cancelBtn = document.getElementById('cancelBtn');
         const promoForm = document.getElementById('promoForm');
-        const modal = document.getElementById('promoModal');
 
         // Add button click
         if (addPromoBtn) {
             addPromoBtn.addEventListener('click', function () {
                 openModal();
-            });
-        }
-
-        // Close modal buttons
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', closeModal);
-        }
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', closeModal);
-        }
-
-        // Close modal when clicking outside
-        if (modal) {
-            modal.addEventListener('click', function (e) {
-                if (e.target === modal) closeModal();
             });
         }
 
